@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   postgres:
     image: postgres:16
@@ -13,5 +12,24 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  app:
+    image: maven:3.9-eclipse-temurin-21
+    container_name: payment_app
+    working_dir: /app
+    volumes:
+      - .:/app
+      - maven_data:/root/.m2
+    ports:
+      - "8080:8080"
+    command: mvn spring-boot:run
+    env_file: .env
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/payment_gateway
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+
 volumes:
   postgres_data:
+  maven_data:
