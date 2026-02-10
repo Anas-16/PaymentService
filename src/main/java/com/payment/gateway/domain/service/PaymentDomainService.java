@@ -11,9 +11,12 @@ import java.util.UUID;
 public class PaymentDomainService implements ProcessPaymentUseCase {
 
     private final PaymentRepositoryPort paymentRepositoryPort;
+    private final com.payment.gateway.domain.port.out.BankGatewayPort bankGatewayPort;
 
-    public PaymentDomainService(PaymentRepositoryPort paymentRepositoryPort) {
+    public PaymentDomainService(PaymentRepositoryPort paymentRepositoryPort,
+            com.payment.gateway.domain.port.out.BankGatewayPort bankGatewayPort) {
         this.paymentRepositoryPort = paymentRepositoryPort;
+        this.bankGatewayPort = bankGatewayPort;
     }
 
     @Override

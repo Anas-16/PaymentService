@@ -10,7 +10,8 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfiguration {
 
     @Bean
-    public ProcessPaymentUseCase processPaymentUseCase(PaymentRepositoryPort paymentRepositoryPort) {
-        return new PaymentDomainService(paymentRepositoryPort);
+    public ProcessPaymentUseCase processPaymentUseCase(PaymentRepositoryPort paymentRepositoryPort,
+            com.payment.gateway.domain.port.out.BankGatewayPort bankGatewayPort) {
+        return new PaymentDomainService(paymentRepositoryPort, bankGatewayPort);
     }
 }
