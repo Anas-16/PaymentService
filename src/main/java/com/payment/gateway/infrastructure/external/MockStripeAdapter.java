@@ -25,10 +25,10 @@ public class MockStripeAdapter implements BankGatewayPort {
             return new BankResponse(null, false, "INTERRUPTED");
         }
 
-        // Simulate 10% failure rate
-        if (ThreadLocalRandom.current().nextInt(100) < 10) {
+        // Simulate 20% failure rate
+        if (ThreadLocalRandom.current().nextInt(100) < 20) {
             log.warn("Mock payment failed randomly");
-            return new BankResponse(null, false, "RANDOM_BANK_FAILURE");
+            return new BankResponse(null, false, "Decline");
         }
 
         String externalId = UUID.randomUUID().toString();

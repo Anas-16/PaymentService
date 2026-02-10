@@ -8,6 +8,8 @@ import com.payment.gateway.domain.port.out.PaymentRepositoryPort;
 
 import java.util.UUID;
 
+import org.springframework.transaction.annotation.Transactional;
+
 public class PaymentDomainService implements ProcessPaymentUseCase {
 
     private final PaymentRepositoryPort paymentRepositoryPort;
@@ -20,6 +22,7 @@ public class PaymentDomainService implements ProcessPaymentUseCase {
     }
 
     @Override
+    @Transactional
     public PaymentTransaction process(ProcessPaymentCommand command) {
         if (command.amount().signum() <= 0) {
             throw new com.payment.gateway.domain.exception.InvalidPaymentException("Amount must be positive");
