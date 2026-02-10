@@ -34,8 +34,22 @@ public class PaymentDomainService implements ProcessPaymentUseCase {
                 command.amount(),
                 command.currency(),
                 TransactionStatus.PENDING,
-                UUID.randomUUID().toString() // Generating a simple idempotency key for now
+                UUID.randomUUID().toString(), // Generating a simple idempotency key for now
+                null // externalId is initially null
         );
+
+        transaction = paymentRepositoryPort.save(transaction);
+
+        // Call External Bank
+        var bankResponse = bankGatewayPort.processPayment(transaction.getAmount(), transaction.getCurrency(),
+                "tok_123"); // Mock token
+
+        if (bankResponse.success()) {
+            transaction.setStatus(TransactionStatus.SUCCESS);
+            transaction.setExternalId(bankResponse.externalId());
+        } else {
+            transaction.setStatus(TransactionStatus.FAILED);
+        }
 
         return paymentRepositoryPort.save(transaction);
     }

@@ -17,7 +17,8 @@ public class PaymentPersistenceMapper {
                 entity.getAmount(),
                 entity.getCurrency(),
                 TransactionStatus.valueOf(entity.getStatus().name()),
-                entity.getIdempotencyKey());
+                entity.getIdempotencyKey(),
+                entity.getExternalId());
     }
 
     public PaymentTransactionEntity toEntity(PaymentTransaction domain) {
@@ -30,6 +31,7 @@ public class PaymentPersistenceMapper {
                 .currency(domain.getCurrency())
                 .status(PaymentTransactionEntity.TransactionStatus.valueOf(domain.getStatus().name()))
                 .idempotencyKey(domain.getIdempotencyKey())
+                .externalId(domain.getExternalId())
                 .build();
     }
 }

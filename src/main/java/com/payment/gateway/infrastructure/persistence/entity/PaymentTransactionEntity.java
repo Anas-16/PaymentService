@@ -35,6 +35,9 @@ public class PaymentTransactionEntity {
     @Column(name = "idempotency_key", unique = true, nullable = false)
     private String idempotencyKey;
 
+    @Column(name = "external_id")
+    private String externalId;
+
     public enum TransactionStatus {
         PENDING, SUCCESS, FAILED
     }

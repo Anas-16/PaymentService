@@ -35,8 +35,7 @@ public class PaymentController {
         PaymentResponse response = new PaymentResponse(
                 transaction.getId(),
                 transaction.getStatus().name(),
-                null // Transaction ID is nullable as per requirements
-        );
+                transaction.getExternalId());
 
         return ResponseEntity.ok(response);
     }
