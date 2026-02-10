@@ -3,7 +3,7 @@ package com.payment.gateway.infrastructure.web.dto;
 import java.time.LocalDateTime;
 
 public record ErrorResponse(
-        String message,
-        String code,
-        LocalDateTime timestamp) {
+                String message,
+                String errorCode,
+                LocalDateTime timestamp) {
 }

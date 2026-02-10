@@ -5,7 +5,7 @@ import com.payment.gateway.domain.port.in.ProcessPaymentCommand;
 import com.payment.gateway.domain.port.in.ProcessPaymentUseCase;
 import com.payment.gateway.infrastructure.web.dto.PaymentRequest;
 import com.payment.gateway.infrastructure.web.dto.PaymentResponse;
-import jakarta.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +23,7 @@ public class PaymentController {
     }
 
     @PostMapping
-    public ResponseEntity<PaymentResponse> initiatePayment(@Valid @RequestBody PaymentRequest request) {
+    public ResponseEntity<PaymentResponse> initiatePayment(@RequestBody PaymentRequest request) {
         ProcessPaymentCommand command = new ProcessPaymentCommand(
                 request.customerId(),
                 request.amount(),
